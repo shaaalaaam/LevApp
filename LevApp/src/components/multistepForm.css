@@ -1,120 +1,90 @@
-/* Global Styles */
-:root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
-    color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
+/* multistepForm.css */
+
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    padding: 20px;
 }
 
-body {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #242424;
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-    font-size: 1.8rem;
-    color: #fff;
+    margin-top: 0;
+    font-size: 24px;
+    color: #333;
 }
 
 input[type="text"],
 input[type="email"],
 input[type="file"] {
+    width: 100%;
+    padding: 10px;
     margin-bottom: 10px;
-    padding: 8px;
-    border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 1rem;
+    border: 1px solid #ccc;
 }
 
 button {
-    margin-top: 10px;
     padding: 10px 20px;
+    background-color: #4caf50;
+    color: #fff;
     border: none;
     border-radius: 4px;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #fff;
-    background-color: #1a1a1a;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #535bf2;
+    background-color: #45a049;
 }
 
-button:focus,
-button:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(82, 139, 255, 0.5);
-}
-
-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.progress-indicator {
+.progress {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.progress-indicator div {
-    margin: 0 5px;
+.progress-dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
+    margin: 0 5px;
 }
 
-/* Step 1 */
-.step-1-container {
+.progress-dot.active {
+    background-color: #4caf50;
+}
+/* 
+Step-specific styles
+.step-container {
+    display: ${({ isVisible }) => (isVisible ? "block" : "none")};
+    margin-bottom: 20px;
+    background-color: rgba(76, 175, 80, 0.1);
+    padding: 20px;
+    border-radius: 4px;
+} */
+
+.step-actions {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
 }
 
-/* Step 2 */
-.step-2-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.step-actions button {
+    flex-basis: 45%;
 }
 
-/* Step 3 */
-.step-3-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Step 4 */
-.step-4-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.geolocation-status {
-    margin-top: 10px;
-    color: #fff;
-}
-
-/* Step 5 */
-.step-5-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* Media query for small screens */
+@media (max-width: 480px) {
+    .container {
+        max-width: 100%;
+    }
 }

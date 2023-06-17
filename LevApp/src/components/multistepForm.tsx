@@ -1,5 +1,12 @@
 import React, { useState, createContext, useContext } from "react";
 import './multistepForm.css'
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setStep,
+  setFormData,
+  resetForm,
+} from "../reducers/multiStepFormReducer";
+
 // Step Context
 interface StepContextValue {
   currentStep: number;
@@ -398,6 +405,29 @@ const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
 
 // Usage example
 const MultistepForm: React.FC = () => {
+  
+   const step = useSelector((state) => state.multiStepForm.step);
+   const formData = useSelector((state) => state.multiStepForm.formData);
+   const dispatch = useDispatch();
+
+   const handleNextStep = () => {
+     dispatch(setStep(step + 1));
+   };
+
+   const handlePreviousStep = () => {
+     dispatch(setStep(step - 1));
+   };
+
+   const handleFormSubmit = () => {
+     // Dispatch an action to save form data to the state
+     dispatch(setFormData(formData));
+     // Perform any additional logic or API calls as needed
+   };
+
+   const handleFormReset = () => {
+     dispatch(resetForm());
+   };
+   
   return (
     <StepProvider totalSteps={5}>
       <Form onSubmit={() => console.log("Form submitted")} />
