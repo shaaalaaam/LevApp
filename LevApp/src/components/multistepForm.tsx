@@ -302,6 +302,9 @@ interface Step4Props {
 const Step4: React.FC<Step4Props> = ({ onNextStep }) => {
   const [files, setFiles] = useState<File[]>([]);
   const [geolocationStatus, setGeolocationStatus] = useState("Not Captured");
+  const [geolocation, setGeolocation] = useState<GeolocationCoordinates | null>(
+    null
+  );
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
@@ -312,15 +315,13 @@ const Step4: React.FC<Step4Props> = ({ onNextStep }) => {
   };
 
   const captureGeolocation = () => {
-    // Simulating geolocation capture
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        // Update the status once coordinates are recorded
-        setGeolocationStatus("Captured");
+        setGeolocation(position.coords);
       },
       (error) => {
         console.log("Error capturing geolocation:", error);
-        setGeolocationStatus("Error");
+        setGeolocation(null);
       }
     );
   };
@@ -343,14 +344,46 @@ const Step4: React.FC<Step4Props> = ({ onNextStep }) => {
         multiple
         onChange={handleFileChange}
       />
-      <p>Geolocation Status: {geolocationStatus}</p>
-      {geolocationStatus !== "Captured" && (
-        <button onClick={captureGeolocation}>Capture Geolocation</button>
+      <p>Geolocation Status: {geolocation ? "Captured" : "Not Captured"}</p>
+      {geolocation && (
+        <div>
+          <p>Latitude: {geolocation.latitude}</p>
+          <p>Longitude: {geolocation.longitude}</p>
+        </div>
       )}
-      <button onClick={handleNextStep}>Next</button>
+      {!geolocation && (
+        <button
+          style={{
+            backgroundColor: "#4CAF50",
+            color: "white",
+            padding: "10px 20px",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+          onClick={captureGeolocation}
+        >
+          Capture Geolocation
+        </button>
+      )}
+      <button
+        style={{
+          backgroundColor: "#008CBA",
+          color: "white",
+          padding: "10px 20px",
+          border: "none",
+          borderRadius: "4px",
+          cursor: "pointer",
+        }}
+        onClick={handleNextStep}
+      >
+        Next
+      </button>
     </div>
   );
+
 };
+
 
 // Step 5 Component
 interface Step5Props {
@@ -359,20 +392,29 @@ interface Step5Props {
 }
 
 const Step5: React.FC<Step5Props> = ({ onPreviousStep, onSubmit }) => {
+  const [submitted, setSubmitted] = useState(false);
+  
   const handlePreviousStep = () => {
     onPreviousStep();
   };
 
   const handleSubmit = () => {
     onSubmit();
+    setSubmitted(true);
   };
 
-  return (
-    <div>
-      <button onClick={handlePreviousStep}>Previous</button>
-      <button onClick={handleSubmit}>Submit</button>
-    </div>
-  );
+   return (
+     <div>
+       {submitted ? (
+         <p>Form submitted successfully!</p>
+       ) : (
+         <>
+           <button onClick={handlePreviousStep}>Previous</button>
+           <button onClick={handleSubmit}>Submit</button>
+         </>
+       )}
+     </div>
+   );
 };
 
 // Progress Indicator Component
@@ -396,6 +438,7 @@ const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
             height: "20px",
             borderRadius: "50%",
             display: "inline-block",
+            margin:"10px",
           }}
         ></div>
       ))}

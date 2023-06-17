@@ -4,7 +4,6 @@ import MultistepForm from "./multistepForm.tsx";
 
 import { useNavigate } from "react-router-dom";
 
-
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,38 +47,50 @@ const LoginPage = () => {
     } catch (error) {
       console.error("Login error:", error);
       setLoginError("An error occurred during login.");
-      alert("An error occurred during login."); // Display error messa
+      alert("An error occurred during login."); // Display error message
     }
   };
 
-return (
-  <div className="login-container">
-    <h2>Login Page</h2>
-    <input
-      type="email"
-      value={email}
-      onChange={(e) => setEmail(e.target.value)}
-      placeholder="Enter your email"
-      className="login-input"
-    />
-    <input
-      type="password"
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}
-      placeholder="Enter your password"
-      className="login-input"
-    />
-    <button onClick={handleLogin} className="login-button">
-      Login
-    </button>
-    {loginError && <p className="login-error">{loginError}</p>}
-    {authToken && (
-      <p className="login-success">Authentication Token: {authToken}</p>
-    )}
-    {isAuthenticated && <MultistepForm/>}
-  </div>
-);
+  const handleForgotPassword = () => {
+    navigate("/forgot-password"); // Redirect to the ForgotPassword page
+  };
 
+  return (
+    <div className="login-container">
+      <h2>Login Page</h2>
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Enter your email"
+        className="login-input"
+      />
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Enter your password"
+        className="login-input"
+      />
+      <button onClick={handleLogin} className="login-button">
+        Login
+      </button>
+      {loginError && <p className="login-error">{loginError}</p>}
+      {authToken && (
+        <p className="login-success">Authentication Token: {authToken}</p>
+      )}
+      {isAuthenticated && <MultistepForm />}
+
+      <div className="forgot-password">
+        <span onClick={handleForgotPassword} className="forgot-password-icon">
+          <i className="fas fa-lock"></i>
+        </span>
+        <p onClick={handleForgotPassword} className="forgot-password-text">
+          Forgot Password?
+        </p>
+      </div>
+    </div>
+  );
 };
 
 export default LoginPage;

@@ -5,6 +5,7 @@ import './App.css'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LoginPage from "./components/loginPage";
 import MultistepFormPage from "./components/multistepForm";
+import ForgotPasswordPage from "./components/forgotPasswordPage";
 
 
 // function App() {
@@ -41,6 +42,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/multistep-form" element={<MultistepFormPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       </Routes>
     </Router>
   );
